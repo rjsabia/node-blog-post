@@ -10,12 +10,12 @@ const app = express();
 app.use(morgan('common'));
 //GET request
 app.get('/blog-post', (req, res) => {
-  res.json(Blogposts.get());
+  res.json(BlogPosts.get());
 });
 //CREATE
 app.post('/blog-post', jsonParser, (req, res) => {
   // ensure `name` and `budget` are in request body
-  const requiredFields = ['title', 'content', 'author', 'publishDate'];
+  const requiredFields = ['title', 'content', 'author'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -31,7 +31,7 @@ app.post('/blog-post', jsonParser, (req, res) => {
 });
 //PUT
 app.put('/blog-post/:id', jsonParser, (req, res) => {
-  const requiredFields = ['title', 'content', 'author', 'publishDate', 'id'];
+  const requiredFields = ['title', 'content', 'author', 'id'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -50,10 +50,10 @@ app.put('/blog-post/:id', jsonParser, (req, res) => {
   console.log(`Updating blog post item \`${req.params.id}\``);
   const updatedItem = BlogPosts.update({
     id: req.params.id,
-    name: req.body.title,
-    budget: req.body.content,
+    title: req.body.title,
+    content: req.body.content,
     author: req.body.author,
-    publishDate: publishDate
+    publishDate: req.body.publishDate
   });
   res.status(204).json(updatedItem);
 });
