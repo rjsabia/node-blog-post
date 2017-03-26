@@ -4,6 +4,8 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const {BlogPosts} = require('./models');
 const jsonParser = bodyParser.json();
+
+BlogPosts.create('test title', 'content content content', 'meme');
 //GET
 router.get('/', (req, res) => {
   res.json(BlogPosts.get());

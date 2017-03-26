@@ -46,15 +46,16 @@ describe('Blog-post', function() {
         res.body.should.be.a('object');
         res.body.should.include.keys('title', 'content', 'author');
         res.body.id.should.not.be.null;
-        res.body.should.deep.equal(Object.assign(newItem, {id: res.body.id}));
+        res.body.should.deep.equal(Object.assign(newItem, {id: res.body.id, publishDate: res.body.publishDate}));
       });
   });
 
   it('should update items on PUT', function() {
     
     const updateData = {
-      name: 'foo',
-      checked: true
+      title: 'update test',
+      content: 'update update update',
+      author: 'meme'
     };
 
     return chai.request(app)
@@ -62,14 +63,14 @@ describe('Blog-post', function() {
       .get('/blog-post')
       .then(function(res) {
         updateData.id = res.body[0].id;
-        
+        updateData.publishDate = res.body[0].publishDate;
         return chai.request(app)
-          .put(`/blog-post/${updateData.id}`)
+          .put(`/blog-post/${updateData.id}`, `/blog-post/${updateData.publishDate}`)
           .send(updateData);
       })
       
       .then(function(res) {
-        res.should.have.status(200);
+        res.should.have.status(204);
         res.should.be.json;
         res.body.should.be.a('object');
         res.body.should.deep.equal(updateData);

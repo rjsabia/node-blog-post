@@ -2,9 +2,10 @@
   "name": "node-blog-post",
   "version": "1.0.0",
   "description": "blog post api",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "test": "mocha ./test"
   },
   "author": "russell sabia",
   "license": "ISC",
@@ -13,5 +14,10 @@
     "express": "^4.15.2",
     "morgan": "^1.8.1",
     "uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.2.0"
   }
 }
